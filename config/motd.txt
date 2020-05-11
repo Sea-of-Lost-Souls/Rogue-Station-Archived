@@ -1,0 +1,7 @@
+<!-- Most valid html will work in here, excluding images. -->
+
+<h1>Welcome to Space Station 13!</h1>
+
+<i>This server is running a Citadel 13 Git build.</i>
+
+<b>This Server is still in its experimental stages, Expect Progression loss, Preference deltition on a regular basis. You will encounter bugs. You will be test Subjects. This server is LRP and is designed to be Twitch Friendly and PG-13 Safe for Work</b>
