@@ -362,7 +362,7 @@ RANDOM_LAWS drone
 #RANDOM_LAWS liveandletlive
 RANDOM_LAWS peacekeeper
 RANDOM_LAWS reporter
-RANDOM_LAWS hulkamania
+#RANDOM_LAWS hulkamania
 
 ## Bad idea laws. Probably shouldn't enable these
 #RANDOM_LAWS syndie
@@ -373,6 +373,15 @@ RANDOM_LAWS hulkamania
 
 ## meme laws. Honk
 #RANDOM_LAWS buildawall
+
+#Random Rogue Laws
+RANDOM_LAWS tyrant
+RANDOM_LAWS GLaDOS
+RANDOM_LAWS zesty
+RANDOM_LAWS M-OS
+RANDOM_LAWS HGG
+RANDOM_LAWS KN1HT-OS
+
 
 ## If weighted laws are selected (DEFAULT_LAWS = 3),
 ## then an AI's starting laws will be determined by the weights of these values
