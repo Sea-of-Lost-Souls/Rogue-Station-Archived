@@ -332,3 +332,18 @@
 	name = "Bar Sign"
 	icon = "empty"
 	desc = "This sign doesn't seem to be on."
+
+/datum/barsign/orcacomand
+	name = "Orca Dive Bar"
+	icon = "orcacomand"
+	desc = "This sign is of a Killer Whale falling from a great hight with a potted plant. The whale seems to have the rank of Comander for some reason."
+
+/datum/barsign/zestbar
+	name = "Best Zest Bar"
+	icon = "zestbar"
+	desc = "Be sure to ask your bartender about the best panda zest, Yes the best is blue and we will not tell you."
+
+/datum/barsign/losttime
+	name = "Lost Time Bar"
+	icon = "losttime"
+	desc = "Your not sure how long you have realy spent in this place."
