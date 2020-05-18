@@ -9,7 +9,6 @@
 			<BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=admin_log'>Admin Log</A><BR>
 			<A href='?src=[REF(src)];[HrefToken()];secrets=show_admins'>Show Admin List</A><BR>
-			<A href='?src=[REF(src)];[HrefToken()];secrets=mentor_log'>Mentor Log</A><BR>
 			<BR>
 			"}
 
@@ -109,8 +108,8 @@
 				dat += "No-one has done anything this round!"
 			usr << browse(dat, "window=admin_log")
 
-		if("mentor_log")
-			CitadelMentorLogSecret()
+// 		if("mentor_log")
+// 			CitadelMentorLogSecret()
 
 		if("show_admins")
 			var/dat = "<B>Current admins:</B><HR>"

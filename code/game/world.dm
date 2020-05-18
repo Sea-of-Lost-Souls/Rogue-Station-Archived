@@ -39,7 +39,7 @@ GLOBAL_LIST(topic_status_cache)
 #endif
 
 	load_admins()
-	load_mentors()
+//	load_mentors()
 	LoadVerbs(/datum/verbs/menu)
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()

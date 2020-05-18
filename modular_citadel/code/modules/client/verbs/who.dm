@@ -1,3 +1,5 @@
+/*
+
 /client/verb/mentorwho()
 	set category = "Mentor"
 	set name = "Mentorwho"
@@ -20,6 +22,7 @@
 				suffix += " (AFK)"
 		msg += "\t[C][suffix]\n"
 	to_chat(src, msg)
+	*/
 
 /client/verb/who()
 	set name = "Who"
@@ -40,7 +43,7 @@
 				assembled += "\t <font color='#FF0000'>[C.key]</font>[admin_mode? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)"
 		Lines += sortList(assembled)
 	assembled.len = 0
-	if(length(GLOB.mentors))
+/*	if(length(GLOB.mentors))
 		Lines += "<b>Mentors:</b>"
 		for(var/X in GLOB.mentors)
 			var/client/C = X
@@ -48,6 +51,7 @@
 				assembled += "\t <font color='#0033CC'>[C.key]</font>[admin_mode? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)"
 		Lines += sortList(assembled)
 	assembled.len = 0
+	*/
 	Lines += "<b>Players:</b>"
 	for(var/X in sortList(GLOB.clients))
 		var/client/C = X
@@ -58,7 +62,7 @@
 			key = C.holder.fakekey
 		assembled += "\t [key][admin_mode? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)"
 	Lines += sortList(assembled)
-	
+
 	for(var/line in Lines)
 		msg += "[line]\n"
 
