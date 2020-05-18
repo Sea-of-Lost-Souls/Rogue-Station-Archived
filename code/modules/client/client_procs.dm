@@ -102,8 +102,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return
 
 	// CITADEL Start - Mentor PM
-	if (citadel_client_procs(href_list))
-		return
+	//if (citadel_client_procs(href_list))
+// 		return
 	// CITADEL End
 
 	switch(href_list["_src_"])
@@ -111,8 +111,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			hsrc = holder
 		if("usr")
 			hsrc = mob
-		if("mentor") // CITADEL
-			hsrc = mentor_datum // CITADEL END
+// 		if("mentor") // CITADEL
+// 			hsrc = mentor_datum // CITADEL END
 		if("prefs")
 			if (inprefs)
 				return

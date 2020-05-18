@@ -77,7 +77,7 @@
 //Citadel istypes
 #define isgenital(A) (istype(A, /obj/item/organ/genital))
 
-#define CITADEL_MENTOR_OOC_COLOUR "#224724"
+//#define CITADEL_MENTOR_OOC_COLOUR "#224724"
 
 //xenobio console upgrade stuff
 #define XENOBIO_UPGRADE_MONKEYS				1

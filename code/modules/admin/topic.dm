@@ -22,10 +22,12 @@
 	if(!CheckAdminHref(href, href_list))
 		return
 
+/*
 	if(href_list["makementor"])
 		makeMentor(href_list["makementor"])
 	else if(href_list["removementor"])
 		removeMentor(href_list["removementor"])
+*/
 
 	if(href_list["ahelp"])
 		if(!check_rights(R_ADMIN, TRUE))
@@ -2860,6 +2862,7 @@
 	dat += {"Now: [GLOB.secret_force_mode]"}
 	usr << browse(dat, "window=f_secret")
 
+/*
 /datum/admins/proc/makeMentor(ckey)
 	if(!usr.client)
 		return
@@ -2915,3 +2918,4 @@
 	else
 		to_chat(usr, "<span class='danger'>Failed to establish database connection. The changes will last only for the current round.</span>")
 	to_chat(usr, "<span class='adminnotice'>Mentor removed.</span>")
+*/

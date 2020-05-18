@@ -99,11 +99,13 @@ GLOBAL_LIST_INIT(meat_types, list(
 //Crew objective and miscreants stuff
 GLOBAL_VAR_INIT(miscreants_allowed, FALSE)
 
+/*
 /client/proc/reload_mentors()
 		set name = "Reload Mentors"
 		set category = "Admin"
 		if(!src.holder)	return
 		message_admins("[key_name_admin(usr)] manually reloaded mentors")
+*/
 
 //LOOC toggles
 /client/verb/listen_looc()
