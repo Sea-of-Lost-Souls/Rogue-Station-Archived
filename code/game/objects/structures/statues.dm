@@ -283,3 +283,14 @@
 	name = "snowman"
 	desc = "Several lumps of snow put together to form a snowman."
 	icon_state = "snowman"
+
+/////////////////////bluespace/////////////////////////////////////////
+
+/obj/structure/statue/bluespace_crystal
+	max_integrity = 5000
+	material_drop_type = /obj/item/stack/sheet/bluespace_crystal
+
+/obj/structure/statue/bluespace_crystal/zesty
+	name = "Bluezest"
+	desc = "ALL HAIL THE BLUE ZEST!!"
+	icon_state = "zest"
