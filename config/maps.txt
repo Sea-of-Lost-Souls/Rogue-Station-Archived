@@ -30,10 +30,12 @@ endmap
 
 map omegastation
 	maxplayers 35
+	disabled
 endmap
 
 map deltastation
 	minplayers 50
+	disabled 
 endmap
 
 map runtimestation
