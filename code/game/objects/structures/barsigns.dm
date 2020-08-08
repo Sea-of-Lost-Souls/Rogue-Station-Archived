@@ -319,3 +319,8 @@
 	name = "Lost Time Bar"
 	icon = "losttime"
 	desc = "Your not sure how long you have realy spent in this place."
+
+/datum/barsign/collective
+	name = "Cherdenko Collective"
+	icon = "collective"
+	desc = "With all the ham you think this should be on the door to the meat locker"
