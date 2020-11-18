@@ -22,7 +22,7 @@
 	var/start_length
 	var/end_sound
 	var/chance
-	var/volume = 100
+	var/volume = 70 //100
 	var/vary = FALSE
 	var/max_loops
 	var/direct
