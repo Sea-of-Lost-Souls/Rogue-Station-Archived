@@ -8,7 +8,7 @@
 		return
 
 	//allocate a channel if necessary now so its the same for everyone
-	channel = channel || open_sound_channel()
+	channel = channel || SSsounds.random_available_channel()
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
@@ -26,10 +26,10 @@
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S, soundenvwet, soundenvdry)
 
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff, channel = 0, pressure_affected = TRUE, sound/S, envwet = -10000, envdry = 0, manual_x, manual_y)
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff, channel = 0, pressure_affected = TRUE, sound/S, envwet = -10000, envdry = 0, manual_x, manual_y, distance_multiplier = 1)
 	if(audiovisual_redirect)
 		var/turf/T = get_turf(src)
-		audiovisual_redirect.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S, 0, -1000, turf_source.x - T.x, turf_source.y - T.y)
+		audiovisual_redirect.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S, 0, -1000, turf_source.x - T.x, turf_source.y - T.y, distance_multiplier)
 	if(!client || !can_hear())
 		return
 
@@ -37,7 +37,7 @@
 		S = sound(get_sfx(soundin))
 
 	S.wait = 0 //No queue
-	S.channel = channel || open_sound_channel()
+	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
 	S.environment = 7
 
@@ -54,6 +54,8 @@
 		var/distance = 0
 		if(!manual_x && !manual_y)
 			distance = get_dist(T, turf_source)
+
+		distance *= distance_multiplier
 
 		S.volume -= max(distance - world.view, 0) * 2 //multiplicative falloff to add on top of natural audio falloff.
 
@@ -86,13 +88,13 @@
 			dx = turf_source.x - T.x
 		else
 			dx = manual_x
-		S.x = dx
+		S.x = dx * distance_multiplier
 		var/dz = 0 // Hearing from infront/behind
 		if(!manual_x)
 			dz = turf_source.y - T.y
 		else
 			dz = manual_y
-		S.z = dz
+		S.z = dz * distance_multiplier
 		// The y value is for above your head, but there is no ceiling in 2d spessmens.
 		S.y = 1
 		S.falloff = (falloff ? falloff : FALLOFF_SOUNDS)
@@ -107,14 +109,13 @@
 			var/mob/M = m
 			M.playsound_local(M, null, volume, vary, frequency, falloff, channel, pressure_affected, S)
 
-/proc/open_sound_channel()
-	var/static/next_channel = 1	//loop through the available 1024 - (the ones we reserve) channels and pray that its not still being used
-	. = ++next_channel
-	if(next_channel > CHANNEL_HIGHEST_AVAILABLE)
-		next_channel = 1
-
 /mob/proc/stop_sound_channel(chan)
 	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
+
+/mob/proc/set_sound_channel_volume(channel, volume)
+	var/sound/S = sound(null, FALSE, FALSE, channel, volume)
+	S.status = SOUND_UPDATE
+	SEND_SOUND(src, S)
 
 /client/proc/playtitlemusic(vol = 50) //85
 	set waitfor = FALSE
@@ -129,6 +130,10 @@
 /proc/get_sfx(soundin)
 	if(istext(soundin))
 		switch(soundin)
+			if ("explosion_creaking") // from skyrat-ss13/skyrat13/pull/3295
+				soundin = pick('sound/effects/explosioncreak1.ogg', 'sound/effects/explosioncreak2.ogg')
+			if ("hull_creaking") // from skyrat-ss13/skyrat13/pull/3295
+				soundin = pick('sound/effects/creak1.ogg', 'sound/effects/creak2.ogg', 'sound/effects/creak3.ogg')
 			if ("shatter")
 				soundin = pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg')
 			if ("explosion")
@@ -225,5 +230,9 @@
 				soundin = pick('sound/effects/clangsmall1.ogg', 'sound/effects/clangsmall2.ogg')
 			if("slosh")
 				soundin = pick('sound/effects/slosh1.ogg', 'sound/effects/slosh2.ogg')
+			if("smcalm")
+				soundin = pick('sound/machines/sm/accent/normal/1.ogg', 'sound/machines/sm/accent/normal/2.ogg', 'sound/machines/sm/accent/normal/3.ogg', 'sound/machines/sm/accent/normal/4.ogg', 'sound/machines/sm/accent/normal/5.ogg', 'sound/machines/sm/accent/normal/6.ogg', 'sound/machines/sm/accent/normal/7.ogg', 'sound/machines/sm/accent/normal/8.ogg', 'sound/machines/sm/accent/normal/9.ogg', 'sound/machines/sm/accent/normal/10.ogg', 'sound/machines/sm/accent/normal/11.ogg', 'sound/machines/sm/accent/normal/12.ogg', 'sound/machines/sm/accent/normal/13.ogg', 'sound/machines/sm/accent/normal/14.ogg', 'sound/machines/sm/accent/normal/15.ogg', 'sound/machines/sm/accent/normal/16.ogg', 'sound/machines/sm/accent/normal/17.ogg', 'sound/machines/sm/accent/normal/18.ogg', 'sound/machines/sm/accent/normal/19.ogg', 'sound/machines/sm/accent/normal/20.ogg', 'sound/machines/sm/accent/normal/21.ogg', 'sound/machines/sm/accent/normal/22.ogg', 'sound/machines/sm/accent/normal/23.ogg', 'sound/machines/sm/accent/normal/24.ogg', 'sound/machines/sm/accent/normal/25.ogg', 'sound/machines/sm/accent/normal/26.ogg', 'sound/machines/sm/accent/normal/27.ogg', 'sound/machines/sm/accent/normal/28.ogg', 'sound/machines/sm/accent/normal/29.ogg', 'sound/machines/sm/accent/normal/30.ogg', 'sound/machines/sm/accent/normal/31.ogg', 'sound/machines/sm/accent/normal/32.ogg', 'sound/machines/sm/accent/normal/33.ogg')
+			if("smdelam")
+				soundin = pick('sound/machines/sm/accent/delam/1.ogg', 'sound/machines/sm/accent/normal/2.ogg', 'sound/machines/sm/accent/normal/3.ogg', 'sound/machines/sm/accent/normal/4.ogg', 'sound/machines/sm/accent/normal/5.ogg', 'sound/machines/sm/accent/normal/6.ogg', 'sound/machines/sm/accent/normal/7.ogg', 'sound/machines/sm/accent/normal/8.ogg', 'sound/machines/sm/accent/normal/9.ogg', 'sound/machines/sm/accent/normal/10.ogg', 'sound/machines/sm/accent/normal/11.ogg', 'sound/machines/sm/accent/normal/12.ogg', 'sound/machines/sm/accent/normal/13.ogg', 'sound/machines/sm/accent/normal/14.ogg', 'sound/machines/sm/accent/normal/15.ogg', 'sound/machines/sm/accent/normal/16.ogg', 'sound/machines/sm/accent/normal/17.ogg', 'sound/machines/sm/accent/normal/18.ogg', 'sound/machines/sm/accent/normal/19.ogg', 'sound/machines/sm/accent/normal/20.ogg', 'sound/machines/sm/accent/normal/21.ogg', 'sound/machines/sm/accent/normal/22.ogg', 'sound/machines/sm/accent/normal/23.ogg', 'sound/machines/sm/accent/normal/24.ogg', 'sound/machines/sm/accent/normal/25.ogg', 'sound/machines/sm/accent/normal/26.ogg', 'sound/machines/sm/accent/normal/27.ogg', 'sound/machines/sm/accent/normal/28.ogg', 'sound/machines/sm/accent/normal/29.ogg', 'sound/machines/sm/accent/normal/30.ogg', 'sound/machines/sm/accent/normal/31.ogg', 'sound/machines/sm/accent/normal/32.ogg', 'sound/machines/sm/accent/normal/33.ogg')
 			//END OF CIT CHANGES
 	return soundin

@@ -146,15 +146,16 @@
 	if(possible_chassis[chassis])
 		AddElement(/datum/element/mob_holder, chassis, 'icons/mob/pai_item_head.dmi', 'icons/mob/pai_item_rh.dmi', 'icons/mob/pai_item_lh.dmi', ITEM_SLOT_HEAD)
 
-/mob/living/silicon/pai/Life()
+/mob/living/silicon/pai/BiologicalLife(seconds, times_fired)
+	if(!(. = ..()))
+		return
 	if(hacking)
 		process_hack()
-	return ..()
 
 /mob/living/silicon/pai/proc/process_hack()
 
 	if(cable && cable.machine && istype(cable.machine, /obj/machinery/door) && cable.machine == hackdoor && get_dist(src, hackdoor) <= 1)
-		hackprogress = CLAMP(hackprogress + 4, 0, 100)
+		hackprogress = clamp(hackprogress + 4, 0, 100)
 	else
 		temp = "Door Jack: Connection to airlock has been lost. Hack aborted."
 		hackprogress = 0
@@ -183,13 +184,12 @@
 		else
 			client.eye = card
 
-/mob/living/silicon/pai/Stat()
-	..()
-	if(statpanel("Status"))
-		if(!stat)
-			stat(null, text("Emitter Integrity: [emitterhealth * (100/emittermaxhealth)]"))
-		else
-			stat(null, text("Systems nonfunctional"))
+/mob/living/silicon/pai/get_status_tab_items()
+	. += ..()
+	if(!stat)
+		. += text("Emitter Integrity: [emitterhealth * (100/emittermaxhealth)]")
+	else
+		. += text("Systems nonfunctional")
 
 /mob/living/silicon/pai/restrained(ignore_grab)
 	. = FALSE
@@ -273,26 +273,28 @@
 /mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
 	. = ..()
 	if(!.)
-		add_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE, 100, multiplicative_slowdown = 2)
+		add_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
 		return TRUE
-	remove_movespeed_modifier(MOVESPEED_ID_PAI_SPACEWALK_SPEEDMOD, TRUE)
+	remove_movespeed_modifier(/datum/movespeed_modifier/pai_spacewalk)
 	return TRUE
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 	. += "A personal AI in holochassis mode. Its master ID string seems to be [master]."
 
-/mob/living/silicon/pai/Life()
-	if(stat == DEAD)
-		return
+/mob/living/silicon/pai/PhysicalLife()
+	. = ..()
 	if(cable)
 		if(get_dist(src, cable) > 1)
 			var/turf/T = get_turf(src.loc)
 			T.visible_message("<span class='warning'>[src.cable] rapidly retracts back into its spool.</span>", "<span class='italics'>You hear a click and the sound of wire spooling rapidly.</span>")
 			qdel(src.cable)
 			cable = null
+
+/mob/living/silicon/pai/BiologicalLife()
+	if(!(. = ..()))
+		return
 	silent = max(silent - 1, 0)
-	. = ..()
 
 /mob/living/silicon/pai/updatehealth()
 	if(status_flags & GODMODE)
@@ -301,7 +303,7 @@
 	update_stat()
 
 /mob/living/silicon/pai/process()
-	emitterhealth = CLAMP((emitterhealth + emitterregen), -50, emittermaxhealth)
+	emitterhealth = clamp((emitterhealth + emitterregen), -50, emittermaxhealth)
 
 /obj/item/paicard/attackby(obj/item/W, mob/user, params)
 	..()
