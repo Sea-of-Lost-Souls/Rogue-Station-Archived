@@ -74,14 +74,14 @@
 	crate_name = "hydroponics supply crate"
 	crate_type = /obj/structure/closet/crate
 
-/*/datum/supply_pack/vending/kinkmate
+/datum/supply_pack/vending/kinkmate
 	name = "Kinkmate Supply and Construction Kit"
 	desc = "A fun way to spend the shift. Contains unmentionable desires."
 	cost = 2000
 	contraband = TRUE
 	contains = list(/obj/item/vending_refill/kink, /obj/item/circuitboard/machine/kinkmate)
 	crate_name = "Kinkmate construction kit"
-*/
+
 /datum/supply_pack/vending/medical
 	name = "Medical Vending Crate"
 	desc = "Contains refills for medical vending machines."
@@ -99,6 +99,7 @@
 	contains = list(/obj/machinery/vending/security)
 	crate_name = "SecTech supply crate"
 	crate_type = /obj/structure/closet/crate/secure/gear
+	can_private_buy = FALSE
 
 /datum/supply_pack/vending/snack
 	name = "Snack Supply Crate"
