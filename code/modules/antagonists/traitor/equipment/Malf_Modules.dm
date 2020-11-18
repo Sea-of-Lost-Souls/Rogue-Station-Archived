@@ -13,7 +13,9 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		/obj/machinery/syndicatebomb/badmin/clown,
 		/obj/machinery/syndicatebomb/empty,
 		/obj/machinery/syndicatebomb/self_destruct,
-		/obj/machinery/syndicatebomb/training
+		/obj/machinery/syndicatebomb/training,
+		/obj/machinery/gravity_generator,
+		/obj/machinery/gravity_generator/main
 	)))
 
 //The malf AI action subtype. All malf actions are subtypes of this.
@@ -43,7 +45,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	else
 		owner_AI = owner
 
-/datum/action/innate/ai/IsAvailable()
+/datum/action/innate/ai/IsAvailable(silent = FALSE)
 	. = ..()
 	if(owner_AI && owner_AI.malf_cooldown > world.time)
 		return FALSE
@@ -257,6 +259,8 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		return
 	if (active)
 		return //prevent the AI from activating an already active doomsday
+	if (owner_AI.shunted)
+		return //prevent AI from activating doomsday while shunted.
 	active = TRUE
 	set_us_up_the_bomb(owner)
 

@@ -22,12 +22,10 @@
 	if(!CheckAdminHref(href, href_list))
 		return
 
-/*
 	if(href_list["makementor"])
 		makeMentor(href_list["makementor"])
 	else if(href_list["removementor"])
 		removeMentor(href_list["removementor"])
-*/
 
 	if(href_list["ahelp"])
 		if(!check_rights(R_ADMIN, TRUE))
@@ -510,7 +508,7 @@
 			if("constructwraith")
 				M.change_mob_type( /mob/living/simple_animal/hostile/construct/wraith , null, null, delmob )
 			if("shade")
-				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob )
+				M.change_mob_type( /mob/living/simple_animal/hostile/construct/shade , null, null, delmob )
 
 
 	/////////////////////////////////////new ban stuff
@@ -865,7 +863,7 @@
 		if(jobban_isbanned(M, ROLE_TRAITOR) || isbanned_dept)
 			dat += "<td width='20%'><a href='?src=[REF(src)];[HrefToken()];jobban3=traitor;jobban4=[REF(M)]'><font color=red>Traitor</font></a></td>"
 		else
-			dat += "<td width='20%'><a href='?src=[REF(src)];jobban3=traitor;jobban4=[REF(M)]'>Traitor</a></td>"
+			dat += "<td width='20%'><a href='?src=[REF(src)];[HrefToken()];jobban3=traitor;jobban4=[REF(M)]'>Traitor</a></td>"
 
 		//Changeling
 		if(jobban_isbanned(M, ROLE_CHANGELING) || isbanned_dept)
@@ -1396,6 +1394,32 @@
 		log_admin("[key_name(usr)] removed [rule] from the forced roundstart rulesets.")
 		message_admins("[key_name(usr)] removed [rule] from the forced roundstart rulesets.", 1)
 
+	else if(href_list["f_dynamic_storyteller"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(SSticker && SSticker.mode)
+			return alert(usr, "The game has already started.", null, null, null, null)
+		if(GLOB.master_mode != "dynamic")
+			return alert(usr, "The game mode has to be dynamic mode.", null, null, null, null)
+		var/list/choices = list()
+		for(var/T in config.storyteller_cache)
+			var/datum/dynamic_storyteller/S = T
+			choices[initial(S.name)] = T
+		var/choice = choices[input("Select storyteller:", "Storyteller", "Classic") as null|anything in choices]
+		if(choice)
+			GLOB.dynamic_forced_storyteller = choice
+			log_admin("[key_name(usr)] forced the storyteller to [GLOB.dynamic_forced_storyteller].")
+			message_admins("[key_name(usr)] forced the storyteller to [GLOB.dynamic_forced_storyteller].")
+			Game()
+
+	else if(href_list["f_dynamic_storyteller_clear"])
+		if(!check_rights(R_ADMIN))
+			return
+		GLOB.dynamic_forced_storyteller = null
+		Game()
+		log_admin("[key_name(usr)] cleared the forced storyteller. The mode will pick one as normal.")
+		message_admins("[key_name(usr)] cleared the forced storyteller. The mode will pick one as normal.", 1)
+
 	else if(href_list["f_dynamic_latejoin"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -1734,9 +1758,8 @@
 		var/mob/M = locate(href_list["makeeligible"])
 		if(!ismob(M))
 			to_chat(usr, "this can only be used on instances of type /mob.")
-		var/datum/element/ghost_role_eligibility/eli = SSdcs.GetElement(list(/datum/element/ghost_role_eligibility))
-		if(M.ckey in eli.timeouts)
-			eli.timeouts -= M.ckey
+		if(M.ckey in GLOB.client_ghost_timeouts)
+			GLOB.client_ghost_timeouts -= M.ckey
 
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_ADMIN))
@@ -2161,8 +2184,18 @@
 		if(!ishuman(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
 			return
-
-		var/obj/item/reagent_containers/food/snacks/cookie/cookie = new(H)
+		//let's keep it simple
+		//milk to plasmemes and skeletons, meat to lizards, electricity bars to ethereals, cookies to everyone else
+		var/cookiealt = /obj/item/reagent_containers/food/snacks/cookie
+		if(isskeleton(H))
+			cookiealt = /obj/item/reagent_containers/food/condiment/milk
+		else if(isplasmaman(H))
+			cookiealt = /obj/item/reagent_containers/food/condiment/milk
+		else if(isethereal(H))
+			cookiealt = /obj/item/reagent_containers/food/snacks/energybar
+		else if(islizard(H))
+			cookiealt = /obj/item/reagent_containers/food/snacks/meat/slab
+		var/obj/item/cookie = new cookiealt(H)
 		if(H.put_in_hands(cookie))
 			H.update_inv_hands()
 		else
@@ -2366,7 +2399,7 @@
 			return
 
 		var/list/offset = splittext(href_list["offset"],",")
-		var/number = CLAMP(text2num(href_list["object_count"]), 1, 100)
+		var/number = clamp(text2num(href_list["object_count"]), 1, 100)
 		var/X = offset.len > 0 ? text2num(offset[1]) : 0
 		var/Y = offset.len > 1 ? text2num(offset[2]) : 0
 		var/Z = offset.len > 2 ? text2num(offset[3]) : 0
@@ -2442,7 +2475,7 @@
 										R.activate_module(I)
 
 		if(pod)
-			new /obj/effect/abstract/DPtarget(target, pod)
+			new /obj/effect/pod_landingzone(target, pod)
 
 		if (number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)]")
@@ -2811,6 +2844,60 @@
 
 		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
 
+	else if(href_list["centcomlookup"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(!CONFIG_GET(string/centcom_ban_db))
+			to_chat(usr, "<span class='warning'>Centcom Galactic Ban DB is disabled!</span>")
+			return
+
+		var/ckey = href_list["centcomlookup"]
+
+		// Make the request
+		var/datum/http_request/request = new()
+		request.prepare(RUSTG_HTTP_METHOD_GET, "[CONFIG_GET(string/centcom_ban_db)]/[ckey]", "", "")
+		request.begin_async()
+		UNTIL(request.is_complete() || !usr)
+		if (!usr)
+			return
+		var/datum/http_response/response = request.into_response()
+
+		var/list/bans
+
+		var/list/dat = list("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><body>")
+
+		if(response.errored)
+			dat += "<br>Failed to connect to CentCom."
+		else if(response.status_code != 200)
+			dat += "<br>Failed to connect to CentCom. Status code: [response.status_code]"
+		else
+			if(response.body == "[]")
+				dat += "<center><b>0 bans detected for [ckey]</b></center>"
+			else
+				bans = json_decode(response["body"])
+				dat += "<center><b>[bans.len] ban\s detected for [ckey]</b></center>"
+				for(var/list/ban in bans)
+					dat += "<b>Server: </b> [sanitize(ban["sourceName"])]<br>"
+					dat += "<b>RP Level: </b> [sanitize(ban["sourceRoleplayLevel"])]<br>"
+					dat += "<b>Type: </b> [sanitize(ban["type"])]<br>"
+					dat += "<b>Banned By: </b> [sanitize(ban["bannedBy"])]<br>"
+					dat += "<b>Reason: </b> [sanitize(ban["reason"])]<br>"
+					dat += "<b>Datetime: </b> [sanitize(ban["bannedOn"])]<br>"
+					var/expiration = ban["expires"]
+					dat += "<b>Expires: </b> [expiration ? "[sanitize(expiration)]" : "Permanent"]<br>"
+					if(ban["type"] == "job")
+						dat += "<b>Jobs: </b> "
+						var/list/jobs = ban["jobs"]
+						dat += sanitize(jobs.Join(", "))
+						dat += "<br>"
+					dat += "<hr>"
+
+		dat += "<br></body>"
+		var/datum/browser/popup = new(usr, "centcomlookup-[ckey]", "<div align='center'>Central Command Galactic Ban Database</div>", 700, 600)
+		popup.set_content(dat.Join())
+		popup.open(0)
+
 	else if(href_list["modantagrep"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2862,7 +2949,6 @@
 	dat += {"Now: [GLOB.secret_force_mode]"}
 	usr << browse(dat, "window=f_secret")
 
-/*
 /datum/admins/proc/makeMentor(ckey)
 	if(!usr.client)
 		return
@@ -2918,4 +3004,3 @@
 	else
 		to_chat(usr, "<span class='danger'>Failed to establish database connection. The changes will last only for the current round.</span>")
 	to_chat(usr, "<span class='adminnotice'>Mentor removed.</span>")
-*/

@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(atoms)
 
 /datum/controller/subsystem/atoms/Initialize(timeofday)
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
-	setupGenetics() //to set the mutations' sequence.
+	setupGenetics()
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
 	return ..()
@@ -90,6 +90,8 @@ SUBSYSTEM_DEF(atoms)
 		qdeleted = TRUE
 	else if(!(A.flags_1 & INITIALIZED_1))
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
+	else
+		SEND_SIGNAL(A,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
 
 	return qdeleted || QDELING(A)
 
@@ -116,9 +118,10 @@ SUBSYSTEM_DEF(atoms)
 	for(var/i in 1 to LAZYLEN(mutations))
 		var/path = mutations[i] //byond gets pissy when we do it in one line
 		var/datum/mutation/human/B = new path ()
-		B.alias = "Mutation #[i]"
+		B.alias = "Mutation [i]"
 		GLOB.all_mutations[B.type] = B
 		GLOB.full_sequences[B.type] = generate_gene_sequence(B.blocks)
+		GLOB.alias_mutations[B.alias] = B.type
 		if(B.locked)
 			continue
 		if(B.quality == POSITIVE)

@@ -25,6 +25,7 @@
 #define GENITAL_CAN_AROUSE		(1<<8)
 #define GENITAL_UNDIES_HIDDEN	(1<<9)
 #define UPDATE_OWNER_APPEARANCE	(1<<10)
+#define GENITAL_CAN_TAUR		(1<<11)
 
 
 #define DEF_VAGINA_SHAPE	"Human"
@@ -46,7 +47,7 @@
 #define BALLS_SIZE_DEF		2
 #define BALLS_SIZE_MAX		3
 
-#define CUM_RATE			2 // holy shit what a really shitty define name - relates to units per arbitrary measure of time?
+#define CUM_RATE			2 // units per 10 seconds
 #define CUM_RATE_MULT		1
 #define CUM_EFFICIENCY		1 //amount of nutrition required per life()
 
@@ -57,7 +58,7 @@
 
 #define DEF_BREASTS_SHAPE	"Pair"
 
-#define MILK_RATE			5
+#define MILK_RATE			3
 #define MILK_RATE_MULT		1
 #define MILK_EFFICIENCY		1
 
@@ -77,7 +78,7 @@
 //Citadel istypes
 #define isgenital(A) (istype(A, /obj/item/organ/genital))
 
-//#define CITADEL_MENTOR_OOC_COLOUR "#224724"
+#define CITADEL_MENTOR_OOC_COLOUR "#224724"
 
 //xenobio console upgrade stuff
 #define XENOBIO_UPGRADE_MONKEYS				1
@@ -97,11 +98,19 @@
 #define NO_APHRO			(1<<9)
 #define NO_ASS_SLAP			(1<<10)
 #define BIMBOFICATION		(1<<11)
-
-#define TOGGLES_CITADEL (EATING_NOISES|DIGESTION_NOISES|BREAST_ENLARGEMENT|PENIS_ENLARGEMENT)
-
-//component stuff
-#define COMSIG_VORE_TOGGLED "voremode_toggled" // totally not copypasta
+#define NO_AUTO_WAG			(1<<12)
+#define GENITAL_EXAMINE		(1<<13)
+#define VORE_EXAMINE		(1<<14)
+#define TOGGLES_CITADEL 0
 
 //belly sound pref things
 #define NORMIE_HEARCHECK 4
+
+//icon states for the default eyes and for a state for no eye
+#define DEFAULT_EYES_TYPE			"normal"
+#define DEFAULT_LEFT_EYE_STATE		"normal_left_eye"
+#define DEFAULT_RIGHT_EYE_STATE		"normal_right_eye"
+#define DEFAULT_NO_EYE_STATE		"no_eye"
+
+//special species definitions
+#define MINIMUM_MUTANT_COLOR	"#202020" //this is how dark players mutant parts and skin can be
