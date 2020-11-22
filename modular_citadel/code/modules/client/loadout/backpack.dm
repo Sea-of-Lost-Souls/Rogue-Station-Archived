@@ -37,10 +37,11 @@
 	name = "Purple Tennis Ball"
 	path = /obj/item/toy/tennis/purple
 
-/datum/gear/backpack/dildo
+/* /datum/gear/backpack/dildo
 	name = "Customizable dildo"
 	path = /obj/item/dildo/custom
 	subcategory = LOADOUT_SUBCATEGORY_BACKPACK_TOYS
+*/
 
 /datum/gear/backpack/toykatana
 	name = "Toy Katana"
