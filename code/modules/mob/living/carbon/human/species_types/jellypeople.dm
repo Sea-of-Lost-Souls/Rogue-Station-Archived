@@ -503,7 +503,9 @@
 
 /datum/action/innate/slime_change/proc/change_form()
 	var/mob/living/carbon/human/H = owner
-	var/select_alteration = input(owner, "Select what part of your form to alter", "Form Alteration", "cancel") in list("Body Color","Hair Style", "Genitals", "Tail", "Snout", "Markings", "Ears", "Taur body", "Penis", "Vagina", "Penis Length", "Breast Size", "Breast Shape", "Cancel")
+//	var/select_alteration = input(owner, "Select what part of your form to alter", "Form Alteration", "cancel") in list("Body Color","Hair Style", "Genitals", "Tail", "Snout", "Markings", "Ears", "Taur body", "Penis", "Vagina", "Penis Length", "Breast Size", "Breast Shape", "Cancel")
+	var/select_alteration = input(owner, "Select what part of your form to alter", "Form Alteration", "cancel") in list("Body Color","Hair Style", "Tail", "Snout", "Markings", "Ears", "Taur body", "Cancel")
+
 
 	if(select_alteration == "Body Color")
 		var/new_color = input(owner, "Choose your skin color:", "Race change","#"+H.dna.features["mcolor"]) as color|null
@@ -527,7 +529,7 @@
 		if(new_style)
 			H.hair_style = new_style
 			H.update_hair()
-	else if (select_alteration == "Genitals")
+/* 	else if (select_alteration == "Genitals")
 		var/operation = input("Select organ operation.", "Organ Manipulation", "cancel") in list("add sexual organ", "remove sexual organ", "cancel")
 		switch(operation)
 			if("add sexual organ")
@@ -548,7 +550,7 @@
 				G.forceMove(get_turf(H))
 				qdel(G)
 				H.update_genitals()
-
+ */
 	else if (select_alteration == "Ears")
 		var/list/snowflake_ears_list = list("Normal" = null)
 		for(var/path in GLOB.mam_ears_list)
@@ -625,7 +627,7 @@
 			if(new_taur != "None")
 				H.dna.features["mam_tail"] = "None"
 		H.update_body()
-
+/*
 	else if (select_alteration == "Penis")
 		for(var/obj/item/organ/genital/penis/X in H.internal_organs)
 			qdel(X)
@@ -684,7 +686,7 @@
 		H.update_genitals()
 		H.apply_overlay()
 		H.give_genital(/obj/item/organ/genital/breasts)
-
+ */
 	else
 		return
 
