@@ -86,7 +86,8 @@
 		var/mob/living/carbon/human/H = owner
 		H.update_genitals()
 
-/mob/living/carbon/verb/toggle_genitals()
+/*
+ /mob/living/carbon/verb/toggle_genitals()
 	set category = "IC"
 	set name = "Expose/Hide genitals"
 	set desc = "Allows you to toggle which genitals should show through clothes or not."
@@ -131,7 +132,7 @@
 			to_chat(src,"<span class='userlove'>You can't make that genital [picked_organ.aroused_state ? "unaroused" : "aroused"]!</span>")
 		picked_organ.update_appearance()
 	return
-
+ */
 
 /obj/item/organ/genital/proc/modify_size(modifier, min = -INFINITY, max = INFINITY)
 	fluid_max_volume += modifier*2.5
