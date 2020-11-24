@@ -328,4 +328,4 @@
 	/datum/barsign/haurbus
 	name = "Man Pool"
 	icon = "haurbus"
-	desc = "Came as you were, Left as something New!! Warning, Nanotrassen is not responsible for any TF on Premisses. TF is not guarenteeed with every libation. certain terms and restrictions may apply"
+	desc = "Came as you were, Leave as something New!! Warning, Nanotrassen is not responsible for any TF on Premisses. TF is not guarenteeed with every libation. certain terms and restrictions may apply"
