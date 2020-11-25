@@ -15,6 +15,10 @@ Format:
 	disabled (disables the map)
 endmap
 
+map betastation
+default
+endmap
+
 map boxstation
 	default
 	#voteweight 1.5
