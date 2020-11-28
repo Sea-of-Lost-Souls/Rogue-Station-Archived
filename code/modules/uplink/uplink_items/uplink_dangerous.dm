@@ -265,3 +265,13 @@
 	item = /obj/item/gun/ballistic/automatic/toy/pistol/riot
 	cost = 3
 	surplus = 10
+
+//------ Mortis Additions ----------
+
+/datum/uplink_item/dangerous/sharkcube
+	name = "Shark Cubes"
+	desc = "A space shark packed into a tactical package \
+			Just add water."
+	item = /obj/item/reagent_containers/food/snacks/cube/shark
+	cost = 10
+	surplus = 10

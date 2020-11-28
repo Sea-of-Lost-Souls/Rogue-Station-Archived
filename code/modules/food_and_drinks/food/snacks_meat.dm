@@ -63,7 +63,7 @@
 	filling_color = "#ee7676"
 	tastes = list("fish" = 1, "pan seared vegtables" = 1)
 	foodtype = MEAT | VEGETABLES | FRIED
-	
+
 /obj/item/reagent_containers/food/snacks/sushi_basic
 	name = "funa hosomaki"
 	desc = "A small cylindrical kudzu skin, filled with rice and fish."
@@ -464,3 +464,37 @@
 	list_reagents = list(/datum/reagent/consumable/eggyolk = 5)
 	tastes = list("dried eggs" = 1, "confusion" = 1)
 	dried_being = /mob/living/simple_animal/chicken
+
+
+//---------- Mortis Additions ----------
+
+/obj/item/reagent_containers/food/snacks/cube/clown
+//Ment to be an admin spawn for prayers
+	name = "'monkey' cube"
+	desc = "Just add water, hey wait a second...DON'T ADD WATER!!"
+	tastes = list("bananas" = 1, "confusion" = 1)
+	dried_being =  /mob/living/simple_animal/hostile/retaliate/clown
+
+
+/obj/item/reagent_containers/food/snacks/cube/bat
+//Ment to be an admin spawn for prayers
+	name = "bat cube"
+	desc = "Just add water"
+	tastes = list("bananas" = 1, "confusion" = 1)
+	dried_being =  /mob/living/simple_animal/hostile/retaliate/bat
+
+
+/obj/item/reagent_containers/food/snacks/cube/bear
+//Ment to be an admin spawn for prayers
+	name = "Pakesh cube"
+	desc = "Just add water, hey wait a second...DON'T ADD WATER!!"
+	tastes = list("anger" = 1, "confusion" = 1)
+	dried_being =  /mob/living/simple_animal/hostile/asteroid/polarbear
+
+
+/obj/item/reagent_containers/food/snacks/cube/shark
+//Ment to be an admin spawn for prayers
+	name = "Shark cube"
+	desc = "Just add water, hey wait a second...DON'T ADD WATER!!"
+	tastes = list("anger" = 1, "confusion" = 1)
+	dried_being =  /mob/living/simple_animal/hostile/shark/laser
