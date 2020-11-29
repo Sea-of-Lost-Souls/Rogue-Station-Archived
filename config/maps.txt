@@ -16,11 +16,9 @@ Format:
 endmap
 
 map betastation
-default
 endmap
 
 map boxstation
-	default
 	#voteweight 1.5
 endmap
 
@@ -46,6 +44,7 @@ endmap
 
 map snaxi
 	minplayers 25
+	disabled
 endmap
 
 map runtimestation
