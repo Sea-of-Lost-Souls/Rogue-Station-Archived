@@ -16,6 +16,7 @@ Format:
 endmap
 
 map betastation
+disabled
 endmap
 
 map boxstation
