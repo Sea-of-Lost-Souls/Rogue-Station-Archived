@@ -263,7 +263,7 @@ SERVER ss13.sea-of-lost-souls.space:4040
 # RULESURL https://katlin.dog/citadel-rules/main
 
 ## Github address
-# GITHUBURL https://github.com/Citadel-Station-13/Citadel-Station-13
+GITHUBURL https://github.com/Rogue-Life/Rogue-Station-Live
 
 ## Round specific stats address
 ## Link to round specific parsed logs; IE statbus. It is appended with the RoundID automatically by ticker/Reboot()
@@ -279,7 +279,7 @@ SERVER ss13.sea-of-lost-souls.space:4040
 ## Github repo id
 ##This can be found by going to https://api.github.com/users/<user name here>/repos
 ##Or https://api.github.com/orgs/<org name here>/repos if the repo owner is an organization
-# GITHUBREPOID 62485194
+GITHUBREPOID 263143152
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
 # BANAPPEALS https://citadel-station.net/forum/viewforum.php?f=8&sid=a0ce5331d5594ef6d49661609c6f4ff9
