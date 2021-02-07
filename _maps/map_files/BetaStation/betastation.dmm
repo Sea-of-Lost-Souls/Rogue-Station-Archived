@@ -32254,6 +32254,10 @@
 "mJj" = (
 /turf/closed/wall/r_wall,
 /area/storage/eva)
+"mJA" = (
+/obj/structure/lattice,
+/turf/closed/wall/r_wall,
+/area/ai_monitored/turret_protected/AIsatextAP)
 "mJD" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
@@ -40477,7 +40481,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/telecomms/relay,
+/obj/machinery/telecomms/relay/preset/auto,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "pXa" = (
@@ -41555,6 +41559,10 @@
 /obj/item/wallframe/firealarm,
 /turf/closed/wall,
 /area/maintenance/aft)
+"qvV" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/turret_protected/AIsatextAS)
 "qvX" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/air_input{
 	dir = 1
@@ -41916,9 +41924,7 @@
 /area/science/xenobiology)
 "qCR" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/dark/visible/layer3,
 /obj/machinery/atmospherics/pipe/simple/dark/visible,
-/obj/machinery/atmospherics/pipe/simple/dark/visible/layer3,
 /obj/machinery/atmospherics/pipe/simple/dark/visible/layer3,
 /obj/machinery/atmospherics/pipe/simple/dark/visible/layer1,
 /turf/open/floor/plasteel,
@@ -50292,6 +50298,10 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
+"tTW" = (
+/obj/structure/lattice,
+/turf/closed/wall/r_wall,
+/area/ai_monitored/turret_protected/AIsatextAS)
 "tTX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -57704,6 +57714,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"wQW" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/turret_protected/AIsatextAS)
 "wQY" = (
 /obj/machinery/atmospherics/pipe/manifold4w/general/visible,
 /turf/open/floor/plasteel/dark,
@@ -59429,6 +59445,10 @@
 	heat_capacity = 1e+006
 	},
 /area/hydroponics)
+"xBU" = (
+/obj/machinery/telecomms/relay/preset/auto,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/turret_protected/AIsatextAP)
 "xCC" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/cable{
@@ -93036,11 +93056,11 @@ twX
 twX
 twX
 dai
-dai
-sYs
-dai
-dai
-dai
+btq
+mJA
+btq
+btq
+btq
 dai
 qAS
 dai
@@ -93295,9 +93315,9 @@ dai
 sYs
 dai
 btq
-btq
-btq
-btq
+xBU
+kqh
+kqh
 bqx
 hni
 hni
@@ -96907,9 +96927,9 @@ dai
 pbj
 fRa
 tXy
-tXy
-tXy
-cFU
+qvV
+qvV
+wQW
 pCI
 fIT
 fIT
@@ -97164,11 +97184,11 @@ twX
 twX
 twX
 dai
-dai
-sYs
-dai
-dai
-dai
+pCI
+tTW
+pCI
+pCI
+pCI
 dai
 qAS
 dai
