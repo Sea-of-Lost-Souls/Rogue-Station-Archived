@@ -16,6 +16,7 @@ Format:
 endmap
 
 map betastation
+default
 endmap
 
 map boxstation
@@ -29,7 +30,7 @@ map metastation
 endmap
 
 map pubbystation
-	default
+	#default
 endmap
 
 map omegastation
