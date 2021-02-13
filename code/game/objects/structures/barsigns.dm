@@ -325,7 +325,7 @@
 	icon = "collective"
 	desc = "With all the ham you think this should be on the door to the meat locker"
 
-	/datum/barsign/haurbus
+/datum/barsign/haurbus
 	name = "Man Pool"
 	icon = "haurbus"
 	desc = "Came as you were, Leave as something New!! Warning, Nanotrassen is not responsible for any TF on Premisses. TF is not guarenteeed with every libation. Certain terms and restrictions may apply"
