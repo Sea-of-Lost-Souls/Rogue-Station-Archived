@@ -23,21 +23,17 @@ endmap
 map metastation
 	minplayers 25
 	#voteweight 0.5
-	disabled
 endmap
 
 map pubbystation
-	default
 endmap
 
 map omegastation
 	maxplayers 35
-	disabled
 endmap
 
 map deltastation
 	minplayers 50
-	disabled
 endmap
 
 map snaxi
@@ -45,11 +41,9 @@ map snaxi
 endmap
 
 map runtimestation
-disabled
 endmap
 
 map multiz_debug
-disabled
 endmap
 
 map kilostation
