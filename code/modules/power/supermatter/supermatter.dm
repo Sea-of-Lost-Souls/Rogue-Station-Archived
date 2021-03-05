@@ -84,7 +84,7 @@
 #define SUPERMATTER_WARNING_PERCENT 100
 #define CRITICAL_TEMPERATURE 10000
 
-#define SUPERMATTER_COUNTDOWN_TIME 30 SECONDS
+#define SUPERMATTER_COUNTDOWN_TIME 60 SECONDS
 
 ///to prevent accent sounds from layering
 #define SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN 2 SECONDS
@@ -717,6 +717,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			if(damage > emergency_point)
 				radio.talk_into(src, "[emergency_alert] Integrity: [get_integrity()]%", common_channel)
 				lastwarning = REALTIMEOFDAY
+				for(var/mob/M in GLOB.player_list)
+					if(M.z == z)
+						SEND_SOUND(M, 'sound/machines/sm/sm_alert3.ogg') //everyone goan know bout this
+
+				//playsound(src, 'sound/machines/sm/sm_alert3.ogg', 150)
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_SUPERMATTER)
 					message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
@@ -724,10 +729,20 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			else if(damage >= damage_archived) // The damage is still going up
 				radio.talk_into(src, "[warning_alert] Integrity: [get_integrity()]%", engineering_channel)
 				lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
+				for(var/mob/M in GLOB.player_list)
+					if(M.z == z)
+						SEND_SOUND(M, 'sound/machines/sm/sm_alert1.ogg') //everyone goan know bout this
+
+				//playsound(src, 'sound/machines/sm/sm_alert1.ogg', 150)
 
 			else                                                 // Phew, we're safe
 				radio.talk_into(src, "[safe_alert] Integrity: [get_integrity()]%", engineering_channel)
 				lastwarning = REALTIMEOFDAY
+				for(var/mob/M in GLOB.player_list)
+					if(M.z == z)
+						SEND_SOUND(M, 'sound/machines/sm/sm_alert1.ogg') //everyone goan know bout this
+
+				//playsound(src, 'sound/machines/sm/sm_alert1.ogg', 150)
 
 			if(power > POWER_PENALTY_THRESHOLD)
 				radio.talk_into(src, "Warning: Hyperstructure has reached dangerous power level.", engineering_channel)
