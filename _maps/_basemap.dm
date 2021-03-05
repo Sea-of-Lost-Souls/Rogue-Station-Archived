@@ -12,7 +12,6 @@
 		#include "map_files\PubbyStation\PubbyStation.dmm"
 		#include "map_files\BoxStation\BoxStation.dmm"
 		#include "map_files\LambdaStation\lambda.dmm"
-		#include "map_files\BetaStation\betastation.dmm"
 
 		#ifdef TRAVISBUILDING
 			#include "templates.dm"
