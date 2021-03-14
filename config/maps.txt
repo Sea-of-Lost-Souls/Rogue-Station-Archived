@@ -48,3 +48,8 @@ endmap
 
 map kilostation
 endmap
+
+# Rogue Station Maps Begin Here
+#map betastation
+#default
+#endmap
