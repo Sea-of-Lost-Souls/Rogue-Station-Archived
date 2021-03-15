@@ -72,7 +72,9 @@ GLOBAL_LIST_INIT(dildo_shapes, list(
 GLOBAL_LIST_INIT(dildo_sizes, list(
 		"Small"		= 1,
 		"Medium"	= 2,
-		"Big"		= 3
+		"Big"		= 3,
+		"Huge"		= 4,
+		"Oh God No!!"		=5
 		))
 GLOBAL_LIST_INIT(dildo_colors, list(//mostly neon colors
 		"Cyan"		= "#00f9ff",//cyan

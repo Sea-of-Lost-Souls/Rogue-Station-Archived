@@ -1254,3 +1254,7 @@
 
 /mob/living/carbon/human/species/arachnid
 	race = /datum/species/arachnid
+
+/mob/living/carbon/human/species/protogen
+	race = /datum/species/protogen
+
