@@ -37,7 +37,6 @@
 	#define SPECIES_VAMPIRE_WEAK	"vampire_roundstart"
 #define SPECIES_XENOHYBRID			"xeno"
 #define SPECIES_ZOMBIE				"zombie"
-#define SPECIES_PROTOGEN			"protogen"
 
 // Species Category Defines ---------------------
 
